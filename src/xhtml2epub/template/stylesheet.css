@@ -1,0 +1,29 @@
+@namespace epub "http://www.idpf.org/2007/ops";
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+hr {
+    width: 33%;
+    margin: 2em auto;
+}
+
+p {
+    text-align: justify;
+    text-indent: 2em;
+    margin: 0 auto;
+}
+
+h1 + p, h2 + p, h3 + p, hr + p {
+    text-indent: 0;
+}
+
+p + img, p + .image, img + p, .image + p {
+    margin-top: 1em;
+}
+
+.image {
+    text-align: center;
+    text-indent: 0;
+}

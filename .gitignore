@@ -1,0 +1,17 @@
+# -*- gitignore -*-
+
+*.epub
+*.gitignore
+
+# Emacs
+*~
+.\#*
+\#*\#
+
+# Python
+*.egg-info/
+*.pyc
+.mypy_cache/
+/build/
+/dist/
+__pycache__/
