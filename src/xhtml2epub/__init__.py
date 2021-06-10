@@ -48,6 +48,5 @@ will show up in the table of contents as something like::
     - Chapter 4
 """
 
-VERSION = (1, 0, 0)
-
 from xhtml2epub.book import Book
+from xhtml2epub.version import __version__
