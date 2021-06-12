@@ -11,15 +11,9 @@ from xhtml2epub import Book
 
 
 def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        prog="xhtml2epub",
-    )
+    parser = argparse.ArgumentParser(description=__doc__, prog="xhtml2epub")
     parser.add_argument(
-        "-i",
-        "--input-xhtml",
-        metavar="INPUT.XHTML",
-        help="path to the input file",
+        "-i", "--input-xhtml", metavar="INPUT.XHTML", help="path to the input file"
     )
     parser.add_argument(
         "-o",
