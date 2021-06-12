@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from ebooklib import epub
 import json
 from lxml import etree
@@ -5,9 +6,26 @@ from lxml.etree import Element, _ElementTree as ElementTree
 from lxml.html import HtmlEntity, XHTMLParser
 import os.path
 import re
-from typing import List, Optional, Tuple, Union
+from typing import Dict, List, NamedTuple, Optional, Tuple, Union
 
 import xhtml2epub.html
+
+
+@dataclass
+class ChapterContent:
+    """The contents of a single chapter."""
+
+    id: str
+    title: str
+    element: Element
+
+
+@dataclass
+class ChapterTree:
+    """The contents of a chapter and any subchapters nested under it."""
+
+    children: List["ChapterTree"]
+    content: Optional[ChapterContent] = None
 
 
 class Book:
@@ -65,7 +83,7 @@ class Book:
         )
 
     @classmethod
-    def _internal_entities(cls, tree: ElementTree) -> dict:
+    def _internal_entities(cls, tree: ElementTree) -> Dict[str, str]:
         """Return a dict of entities defined in the ``tree``'s internal DTD."""
         return {e.name: e.content for e in tree.docinfo.internalDTD.entities()}
 
@@ -79,9 +97,9 @@ class Book:
         self.stylesheets = self._find_stylesheets(content)
 
         chapters = self._find_chapters(content.find("body"))
-        self.chapters = chapters["children"]
+        self.chapters = chapters.children
 
-    def _find_images(self, content: ElementTree) -> Tuple[dict, str]:
+    def _find_images(self, content: ElementTree) -> Tuple[Dict[str, str], str]:
         """Find all images in the book and store their ``src``."""
         images = {}
         cover = None
@@ -104,12 +122,12 @@ class Book:
         """Return a file ``path``'s basename with file extension removed."""
         return os.path.splitext(os.path.basename(path))[0]
 
-    def _find_stylesheets(self, content: ElementTree) -> List[dict]:
+    def _find_stylesheets(self, content: ElementTree) -> List[Dict[str, str]]:
         """Find all linked stylesheets in the book."""
         links = content.xpath('//link[@rel="stylesheet"]')
         return [dict(link.attrib) for link in links]
 
-    def _find_chapters(self, element: Element) -> dict:
+    def _find_chapters(self, element: Element) -> ChapterTree:
         """Find all chapters under ``element``.
 
         A chapter is a ``div`` with the ``id`` attribute set.
@@ -118,14 +136,13 @@ class Book:
         for child in child_divs:
             element.remove(child)
 
-        chapter = {}
+        chapter = ChapterTree(children=[self._find_chapters(div) for div in child_divs])
         if element.tag == "div":
-            chapter["content"] = self._extract_chapter(element)
+            chapter.content = self._extract_chapter(element)
 
-        chapter["children"] = [self._find_chapters(div) for div in child_divs]
         return chapter
 
-    def _extract_chapter(self, element: Element) -> dict:
+    def _extract_chapter(self, element: Element) -> ChapterContent:
         """Parse the chapter in ``element`` to determine its id and title."""
         chapter_id = element.attrib["id"]
         title = element.attrib.get("title")
@@ -142,7 +159,7 @@ class Book:
             else:
                 title = re.sub("[-_]", " ", chapter_id).title()
 
-        return {"id": chapter_id, "title": title, "element": element}
+        return ChapterContent(chapter_id, title, element)
 
     def _text(self, element: Element) -> str:
         """Extract the text content of ``element`` and its children, expanding entity
@@ -229,30 +246,29 @@ class Book:
         book.add_item(epub.EpubNav())
 
     def _add_chapter(
-        self, book: epub.EpubBook, chapter: dict
+        self, book: epub.EpubBook, chapter: ChapterTree
     ) -> Union[epub.EpubItem, Tuple[epub.EpubItem, List[epub.EpubItem]]]:
         """Add a TOC entry for ``chapter`` and all of its children to ``book``."""
-        content = chapter["content"]
-        chapter_id = content["id"]
+        content = chapter.content
 
-        element = content["element"]
+        element = content.element
         if len(element):
             # This section has some text content other than its children, so
             # create a separate page for it and insert it into the book spine
             chapter_item = epub.EpubHtml(
-                uid=chapter_id,
-                title=content["title"],
-                file_name=f"{chapter_id}.xhtml",
-                content=self._element_xhtml(content["element"]),
+                uid=content.id,
+                title=content.title,
+                file_name=f"{content.id}.xhtml",
+                content=self._element_xhtml(content.element),
             )
             chapter_item.links = self.stylesheets
             book.add_item(chapter_item)
             self.spine.append(chapter_item)
         else:
             # Empty section just for grouping; no page, no spine entry
-            chapter_item = epub.Section(content["title"])
+            chapter_item = epub.Section(content.title)
 
-        children = chapter.get("children")
+        children = chapter.children
         if children:
             child_items = [self._add_chapter(book, child) for child in children]
             return (chapter_item, child_items)
