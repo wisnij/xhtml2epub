@@ -6,6 +6,7 @@ from lxml.etree import Element, _ElementTree as ElementTree
 from lxml.html import HtmlEntity, XHTMLParser
 import os.path
 import re
+import sys
 from typing import Dict, List, NamedTuple, Optional, Tuple, Union
 
 import xhtml2epub.html
@@ -98,6 +99,8 @@ class Book:
 
         chapters = self._find_chapters(content.find("body"))
         self.chapters = chapters.children
+        if not self.chapters:
+            print(f"WARNING: no chapters found in {self.source or self.content!r}", file=sys.stderr)
 
     def _find_images(self, content: ElementTree) -> Tuple[Dict[str, str], str]:
         """Find all images in the book and store their ``src``."""
