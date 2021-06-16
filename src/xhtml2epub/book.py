@@ -282,7 +282,7 @@ class Book:
         """Return the contents of ``element`` as XHTML, omitting the top-level element tag itself."""
         raw_content = b"".join(etree.tostring(e) for e in element)
 
-        def expand_entity(match) -> bytes:
+        def expand_entity(match: re.Match) -> bytes:
             is_num, is_hex, code = match.groups()
             if is_num:
                 return chr(int(code, base=16 if is_hex else 10)).encode()
