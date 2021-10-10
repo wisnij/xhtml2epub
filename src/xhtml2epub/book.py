@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from ebooklib import epub
+import html
 import json
 from lxml import etree
 from lxml.etree import Element, _ElementTree as ElementTree
@@ -8,8 +9,6 @@ import os.path
 import re
 import sys
 from typing import Dict, List, NamedTuple, Optional, Tuple, Union
-
-import xhtml2epub.html
 
 
 @dataclass
@@ -91,7 +90,7 @@ class Book:
     def _parse_content(self, content: ElementTree) -> None:
         """Walk the XML DOM and detect book structure."""
         self.content = content
-        self.entities = xhtml2epub.html.entities.copy()
+        self.entities = {k.rstrip(";"): v for k, v in html.entities.html5.items()}
         self.entities.update(self._internal_entities(content))
 
         self.images, self.cover = self._find_images(content)
