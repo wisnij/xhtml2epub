@@ -100,7 +100,10 @@ class Book:
         chapters = self._find_chapters(content.find("body"))
         self.chapters = chapters.children
         if not self.chapters:
-            print(f"WARNING: no chapters found in {self.source or self.content!r}", file=sys.stderr)
+            print(
+                f"WARNING: no chapters found in {self.source or self.content!r}",
+                file=sys.stderr,
+            )
 
     def _find_images(self, content: ElementTree) -> Tuple[Dict[str, str], str]:
         """Find all images in the book and store their ``src``."""
