@@ -13,6 +13,12 @@ from xhtml2epub import Book
 def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, prog="xhtml2epub")
     parser.add_argument(
+        "-V",
+        "--version",
+        help="show version information and exit",
+        action="store_true",
+    )
+    parser.add_argument(
         "-i", "--input-xhtml", metavar="INPUT.XHTML", help="path to the input file"
     )
     parser.add_argument(
@@ -33,6 +39,12 @@ def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
 
 def main(args: Optional[List[str]] = None) -> Optional[int]:
     opts = parse_args(args)
+
+    if opts.version:
+        import xhtml2epub.version
+
+        print(f"xhtml2epub {xhtml2epub.version.__version__}")
+        return
 
     if opts.write_template_dir:
         _write_template_dir(opts.write_template_dir)
