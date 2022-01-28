@@ -66,7 +66,9 @@ class Book:
         :param source: path to the XHTML file to parse
         """
         parser = XHTMLParser(
-            remove_blank_text=True, resolve_entities=True, load_dtd=True
+            load_dtd=True,
+            remove_blank_text=True,
+            resolve_entities=False,
         )
         tree = etree.parse(source, parser)
 
