@@ -48,5 +48,7 @@ will show up in the table of contents as something like::
     - Chapter 4
 """
 
+__author__ = "Jim Wisniewski <wisnij@gmail.com>"
+
 from xhtml2epub.book import Book
 from xhtml2epub.version import __version__
