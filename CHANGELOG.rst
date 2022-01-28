@@ -1,3 +1,9 @@
+1.1.0 (2022-01-28)
+==================
+
+- Improve handling of named character entities
+- Add ``--version`` option
+
 1.0.3 (2021-10-10)
 ==================
 
