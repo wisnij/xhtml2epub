@@ -157,7 +157,7 @@ class Book:
             title_parts = []
             for child in element:
                 if child.tag in {"h1", "h2", "h3"}:
-                    title_parts.append(self._text(child))
+                    title_parts.append(self._text(child).strip())
                 else:
                     break
 
