@@ -9,18 +9,27 @@ from typing import List, Optional
 
 import xhtml2epub
 
+_COPYRIGHT = f"""\
+Copyright (c) 2021, 2022 {xhtml2epub.__author__}
+License GPLv3+: GNU GPL version 3 or later <https://www.gnu.org/licenses/>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+"""
+
 
 def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=__doc__,
         prog="xhtml2epub",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "-V",
         "--version",
         help="show version information and exit",
         action="version",
-        version=f"%(prog)s {xhtml2epub.__version__}",
+        version=f"%(prog)s {xhtml2epub.__version__} ({' '.join(xhtml2epub.__path__)})\n\n"
+        + _COPYRIGHT,
     )
     parser.add_argument(
         "-i", "--input-xhtml", metavar="INPUT.XHTML", help="path to the input file"
