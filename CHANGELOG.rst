@@ -1,3 +1,9 @@
+1.1.1 (2022-03-13)
+==================
+
+- Tweak version metadata variable
+- Add copyright and license info to ``--version`` output
+
 1.1.0 (2022-01-28)
 ==================
 
