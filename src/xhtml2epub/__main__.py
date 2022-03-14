@@ -7,16 +7,20 @@ import shutil
 import sys
 from typing import List, Optional
 
-from xhtml2epub import Book
+import xhtml2epub
 
 
 def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__, prog="xhtml2epub")
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        prog="xhtml2epub",
+    )
     parser.add_argument(
         "-V",
         "--version",
         help="show version information and exit",
-        action="store_true",
+        action="version",
+        version=f"%(prog)s {xhtml2epub.__version__}",
     )
     parser.add_argument(
         "-i", "--input-xhtml", metavar="INPUT.XHTML", help="path to the input file"
@@ -40,12 +44,6 @@ def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
 def main(args: Optional[List[str]] = None) -> Optional[int]:
     opts = parse_args(args)
 
-    if opts.version:
-        import xhtml2epub.version
-
-        print(f"xhtml2epub {xhtml2epub.version.__version__}")
-        return
-
     if opts.write_template_dir:
         _write_template_dir(opts.write_template_dir)
 
@@ -66,7 +64,7 @@ def _write_template_dir(destination_dir: str) -> None:
 
 def _convert_ebook(input_file: str, output_file: Optional[str] = None) -> None:
     print(f"reading {input_file!r}")
-    book = Book.parse(input_file)
+    book = xhtml2epub.Book.parse(input_file)
 
     dest = output_file or book.epub_filename()
     if os.path.exists(dest):
