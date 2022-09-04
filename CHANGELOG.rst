@@ -1,3 +1,8 @@
+1.1.2 (2022-09-03)
+==================
+
+- Clean up unused XML namespaces when parsing input.
+
 1.1.1 (2022-03-13)
 ==================
 
