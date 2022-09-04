@@ -75,6 +75,7 @@ class Book:
         # Strip the standard XHTML namespace from tags, but leave any others in place
         for elt in tree.iter(tag=Element):
             elt.tag = elt.tag.replace("{http://www.w3.org/1999/xhtml}", "")
+            etree.cleanup_namespaces(elt)
 
         entities = cls._internal_entities(tree)
         return Book(
