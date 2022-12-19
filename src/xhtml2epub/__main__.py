@@ -47,7 +47,12 @@ def parse_args(args: Optional[List[str]] = None) -> argparse.Namespace:
         help="write ebook template files to OUTPUT_DIR",
     )
 
-    return parser.parse_args(args)
+    opts = parser.parse_args(args)
+    if not (opts.write_template_dir or opts.input_xhtml):
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+
+    return opts
 
 
 def main(args: Optional[List[str]] = None) -> Optional[int]:
