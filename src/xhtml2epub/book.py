@@ -117,7 +117,7 @@ class Book:
         for img in content.iterfind(".//img"):
             source = img.attrib["src"]
             basename = self._basename(source)
-            img_id = f"img.{basename}"
+            img_id = img.attrib.get("id", f"img.{basename}")
 
             if img_id not in images:
                 images[img_id] = source
