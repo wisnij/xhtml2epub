@@ -2,10 +2,11 @@
 
 import argparse
 import os
-import pkg_resources
 import shutil
 import sys
 from typing import List, Optional
+
+import pkg_resources
 
 import xhtml2epub
 
