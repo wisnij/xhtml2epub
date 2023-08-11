@@ -75,7 +75,6 @@ class Book:
         # Strip the standard XHTML namespace from tags, but leave any others in place
         for elt in tree.iter(tag=Element):
             elt.tag = elt.tag.replace("{http://www.w3.org/1999/xhtml}", "")
-            etree.cleanup_namespaces(elt)
 
         entities = cls._internal_entities(tree)
         return Book(
@@ -148,6 +147,7 @@ class Book:
 
         chapter = ChapterTree(children=[self._find_chapters(div) for div in child_divs])
         if element.tag == "div":
+            etree.cleanup_namespaces(element)
             chapter.content = self._extract_chapter(element)
 
         return chapter
@@ -286,8 +286,8 @@ class Book:
             return chapter_item
 
     def _element_xhtml(self, element: Element) -> bytes:
-        """Return the contents of ``element`` as XHTML, omitting the top-level element tag itself."""
-        raw_content = b"".join(etree.tostring(e) for e in element)
+        """Serialize ``element`` and its contents as XHTML."""
+        raw_content = etree.tostring(element)
 
         def expand_entity(match: re.Match) -> bytes:
             is_num, is_hex, code = match.groups()
