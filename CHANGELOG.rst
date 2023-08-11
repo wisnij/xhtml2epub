@@ -1,3 +1,10 @@
+1.2.0 (2023-08-11)
+==================
+
+- Use an existing image ``id`` attribute if it has one
+- Print help message if invoked with no action arguments
+- Serialize whole chapter ``div`` to avoid namespace spam
+
 1.1.2 (2022-09-03)
 ==================
 

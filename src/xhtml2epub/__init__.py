@@ -50,6 +50,6 @@ will show up in the table of contents as something like::
 
 __all__ = ["Book"]
 __author__ = "Jim Wisniewski <wisnij@gmail.com>"
-__version__ = "1.1.2"
+__version__ = "1.2.0"
 
 from xhtml2epub.book import Book
