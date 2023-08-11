@@ -10,7 +10,7 @@ from typing import List, Optional
 import xhtml2epub
 
 _COPYRIGHT = f"""\
-Copyright (c) 2021, 2022 {xhtml2epub.__author__}
+Copyright (c) 2021, 2022, 2023 {xhtml2epub.__author__}
 License GPLv3+: GNU GPL version 3 or later <https://www.gnu.org/licenses/>.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
