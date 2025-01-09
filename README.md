@@ -23,7 +23,9 @@ form of XML internal entity declarations in the document's DTD.  Currently,
 - `title`
 - `author` (or authors, but as a single string either way)
 - `language` (such as "en")
-- `uid` (a unique identifier, such as a UUID or ISBN)
+- `uid` (a unique identifier, such as a UUID
+  (`urn:uuid:00112233-4455-6677-8899-aabbccddeeff`) or an ISBN
+  (`urn:isbn:987123456789X`)
 
 All of these are optional, but recommended, especially if you want the resulting
 EPUB file to conform to the EPUB standard.  (Why would you want a book without a
