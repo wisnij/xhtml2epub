@@ -8,11 +8,11 @@ description = "A simple EPUB authoring tool"
 license = "GPL-3.0-or-later"
 name = "xhtml2epub"
 readme = "README.md"
-version = "2.0.0"
+version = "2.0.1"
 
 [tool.poetry.dependencies]
-EbookLib = "^0.17.1"
-lxml = "^4.3.2"
+EbookLib = "^0.19.0"
+lxml = "^5.4.0"
 python = "^3.8"
 
 [tool.poetry.scripts]
