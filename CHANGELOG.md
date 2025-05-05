@@ -1,3 +1,7 @@
+# 2.0.1 (2025-05-05)
+
+- Update `lxml` and `EbookLib` dependencies to their latest versions
+
 # 2.0.0 (2023-08-15)
 
 - Convert to Poetry
