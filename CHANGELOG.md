@@ -1,3 +1,7 @@
+# 2.0.2 (2025-10-29)
+
+- Replace deprecated `pkg_resources` module with `importlib.resources`
+
 # 2.0.1 (2025-05-05)
 
 - Update `lxml` and `EbookLib` dependencies to their latest versions
