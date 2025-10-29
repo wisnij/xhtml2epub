@@ -1,13 +1,12 @@
 """Convert an XHTML ebook into EPUB format."""
 
 import argparse
+import importlib.resources
 import os
 import shutil
 import sys
 from importlib.metadata import metadata
 from typing import List, Optional
-
-import pkg_resources
 
 import xhtml2epub
 
@@ -75,14 +74,14 @@ def main(args: Optional[List[str]] = None) -> Optional[int]:
 
 
 def _write_template_dir(destination_dir: str) -> None:
-    source_dir = pkg_resources.resource_filename(__name__, "template")
     print(f"copying template files to {destination_dir!r}")
 
     def copy(src, dest):
         print(f">>> {dest!r}")
         shutil.copy2(src, dest)
 
-    shutil.copytree(source_dir, destination_dir, copy_function=copy)
+    with importlib.resources.path(__name__, "template") as source_dir:
+        shutil.copytree(source_dir, destination_dir, copy_function=copy)
 
 
 def _convert_ebook(input_file: str, output_file: Optional[str] = None) -> None:
