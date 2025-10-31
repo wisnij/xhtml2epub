@@ -1,15 +1,13 @@
+from dataclasses import dataclass
 import html
-import json
 import os.path
 import re
 import sys
-from dataclasses import dataclass
-from typing import Dict, List, NamedTuple, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from ebooklib import epub
 from lxml import etree
-from lxml.etree import Element
-from lxml.etree import _ElementTree as ElementTree
+from lxml.etree import Element, _ElementTree as ElementTree
 from lxml.html import HtmlEntity, XHTMLParser
 
 

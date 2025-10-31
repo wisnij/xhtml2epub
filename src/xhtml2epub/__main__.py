@@ -1,11 +1,11 @@
 """Convert an XHTML ebook into EPUB format."""
 
 import argparse
+from importlib.metadata import metadata
 import importlib.resources
 import os
 import shutil
 import sys
-from importlib.metadata import metadata
 from typing import List, Optional
 
 import xhtml2epub

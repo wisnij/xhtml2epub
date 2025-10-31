@@ -22,3 +22,14 @@ xhtml2epub = "xhtml2epub.__main__:main"
 
 [project.urls]
 repository = "https://github.com/wisnij/xhtml2epub"
+
+[tool.ruff]
+fix = true
+
+[tool.ruff.lint]
+# I=isort, UP=pyupgrade
+extend-select = ["I", "UP"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
