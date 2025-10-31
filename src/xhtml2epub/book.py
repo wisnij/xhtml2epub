@@ -292,11 +292,12 @@ class Book:
         def expand_entity(match: re.Match) -> bytes:
             is_num, is_hex, code = match.groups()
             if is_num:
-                return chr(int(code, base=16 if is_hex else 10)).encode()
+                char = chr(int(code, base=16 if is_hex else 10))
+            else:
+                char = self.entities.get(code.decode())
 
-            code = code.decode()
-            if code in self.entities:
-                return self.entities[code].encode()
+            if char and char not in ("&", "<", ">"):
+                return char.encode()
             else:
                 return match.group()
 
