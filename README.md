@@ -22,7 +22,7 @@ form of XML internal entity declarations in the document's DTD.  Currently,
 
 - `title`
 - `author` (or authors, but as a single string either way)
-- `language` (such as "en")
+- `language` (such as "en" or "en-US")
 - `uid` (a unique identifier, such as a UUID
   (`urn:uuid:00112233-4455-6677-8899-aabbccddeeff`) or an ISBN
   (`urn:isbn:987123456789X`)
