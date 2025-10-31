@@ -1,3 +1,7 @@
+# 2.0.3 (2025-10-31)
+
+- Preserve entities for literal `&`, `<`, and `>` characters
+
 # 2.0.2 (2025-10-29)
 
 - Replace deprecated `pkg_resources` module with `importlib.resources`
