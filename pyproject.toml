@@ -20,7 +20,7 @@ license = "GPL-3.0-or-later"
 name = "xhtml2epub"
 readme = "README.md"
 requires-python = ">=3.8"
-version = "2.1.0rc1"
+version = "2.1.0"
 
 [project.scripts]
 xhtml2epub = "xhtml2epub.__main__:main"

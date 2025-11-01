@@ -1,3 +1,8 @@
+# 2.1.0 (2025-01-01)
+
+- Add `Book.to_epub` method
+- Add tests
+
 # 2.0.3 (2025-10-31)
 
 - Preserve entities for literal `&`, `<`, and `>` characters
