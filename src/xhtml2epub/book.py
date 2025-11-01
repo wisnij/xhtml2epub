@@ -181,8 +181,8 @@ class Book:
             child_texts = [self._text(child) for child in element]
             return "".join([element.text or "", *child_texts, element.tail or ""])
 
-    def write(self, dest: str) -> None:
-        """Write the book's content to ``dest`` as EPUB."""
+    def to_epub(self) -> epub.EpubBook:
+        """Create an ``EpubBook`` object with the book's fully-parsed content."""
         book = epub.EpubBook()
         if self.title:
             book.set_title(self.title)
@@ -197,7 +197,11 @@ class Book:
         self._add_stylesheets(book)
         self._add_chapters(book)
 
-        epub.write_epub(dest, book)
+        return book
+
+    def write(self, dest: str) -> None:
+        """Write the book's content to ``dest`` as EPUB."""
+        epub.write_epub(dest, self.to_epub())
 
     def epub_filename(self) -> str:
         """Suggest a name for the EPUB file based on the book's author and title."""
