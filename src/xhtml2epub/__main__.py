@@ -73,15 +73,15 @@ def main(args: Optional[List[str]] = None) -> Optional[int]:
         _convert_ebook(opts.input_xhtml, opts.output_epub)
 
 
-def _write_template_dir(destination_dir: str) -> None:
-    print(f"copying template files to {destination_dir!r}")
+def _write_template_dir(dest_dir: str) -> None:
+    print(f"copying template files to {dest_dir!r}")
 
     def copy(src, dest):
         print(f">>> {dest!r}")
         shutil.copy2(src, dest)
 
-    with importlib.resources.path(__name__, "template") as source_dir:
-        shutil.copytree(source_dir, destination_dir, copy_function=copy)
+    with importlib.resources.path("xhtml2epub", "template") as src_dir:
+        shutil.copytree(src_dir, dest_dir, copy_function=copy)
 
 
 def _convert_ebook(input_file: str, output_file: Optional[str] = None) -> None:
