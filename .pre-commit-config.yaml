@@ -10,4 +10,4 @@ repos:
     hooks:
       - id: pretty-format-toml
         args: [--autofix, --trailing-commas]
-        exclude: poetry.lock
+        exclude: uv.lock
