@@ -11,3 +11,10 @@ repos:
       - id: pretty-format-toml
         args: [--autofix, --trailing-commas]
         exclude: uv.lock
+  - repo: local
+    hooks:
+      - id: html-tidy
+        name: HTML Tidy
+        entry: .hooks/html-tidy.sh
+        language: script
+        types: [html]
