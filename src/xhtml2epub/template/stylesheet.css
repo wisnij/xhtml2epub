@@ -23,7 +23,9 @@ p + img, p + .image, img + p, .image + p {
     margin-top: 1em;
 }
 
-.image {
-    text-align: center;
-    text-indent: 0;
+.image img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
 }
