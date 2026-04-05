@@ -1,5 +1,9 @@
 @namespace epub "http://www.idpf.org/2007/ops";
 
+body {
+    font-family: serif;
+}
+
 h1, h2, h3 {
     text-align: center;
 }
